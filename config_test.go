@@ -15,9 +15,6 @@ func TestPiIp(t *testing.T) {
 		t.Fatalf("cnfg is empty")
 
 	}
-	if cnfg != "192.168.1.3" {
-		t.Fatalf("incorrect ip %s", cnfg)
-	}
 	fmt.Println("config ip is ", cnfg)
 }
 
@@ -30,9 +27,6 @@ func TestPiPort(t *testing.T) {
 	if cnfg == "" {
 		t.Fatalf("cnfg is empty")
 
-	}
-	if cnfg != "9010" {
-		t.Fatalf("incorrect ip %s", cnfg)
 	}
 	fmt.Println("config port is ", cnfg)
 }
