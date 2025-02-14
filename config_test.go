@@ -20,3 +20,19 @@ func TestPiIp(t *testing.T) {
 	}
 	fmt.Println("config ip is ", cnfg)
 }
+
+func TestPiPort(t *testing.T) {
+	cnfg, err := GetPiPort()
+	if err != nil {
+		t.Fatalf("error fetching config %+v", err)
+	}
+
+	if cnfg == "" {
+		t.Fatalf("cnfg is empty")
+
+	}
+	if cnfg != "9010" {
+		t.Fatalf("incorrect ip %s", cnfg)
+	}
+	fmt.Println("config port is ", cnfg)
+}

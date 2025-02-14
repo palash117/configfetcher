@@ -7,25 +7,33 @@ import (
 )
 
 type GithubConfig struct {
-	Pi string `json:"pi"`
+	Pi   string `json:"pi"`
+	Port string `json:"port"`
 }
 
-func GetPiIP() (string, error) {
+func fetchGithubConfig() (*GithubConfig, error) {
+
 	resp, err := http.Get("https://raw.githubusercontent.com/palash117/Globals/refs/heads/main/config.json")
 
 	if err != nil {
 		fmt.Println("http err is ", err)
-		return "", err
+		return nil, err
 	}
 
 	infoResp, err := getFormattedGithubConfig(resp)
 	defer resp.Body.Close()
 	if err != nil {
 		fmt.Println("err is ", err)
-		return "", err
+		return nil, err
 	}
-	printable, _ := json.MarshalIndent(infoResp, "", "")
-	fmt.Println(fmt.Sprintf("%s", printable))
+	return infoResp, err
+}
+
+func GetPiIP() (string, error) {
+	infoResp, err := fetchGithubConfig()
+	if err != nil {
+		return "", fmt.Errorf("Github config err %+v", err)
+	}
 	return infoResp.Pi, nil
 }
 
@@ -39,4 +47,12 @@ func getFormattedGithubConfig(httpResp *http.Response) (*GithubConfig, error) {
 		return nil, err
 	}
 	return &resp, nil
+}
+func GetPiPort() (string, error) {
+	infoResp, err := fetchGithubConfig()
+	if err != nil {
+		return "", fmt.Errorf("Github config err %+v", err)
+	}
+	return infoResp.Port, nil
+
 }
