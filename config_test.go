@@ -30,3 +30,16 @@ func TestPiPort(t *testing.T) {
 	}
 	fmt.Println("config port is ", cnfg)
 }
+func TestSgt(t *testing.T) {
+	cnfg, err := GetSgt()
+	if err != nil {
+		t.Fatalf("error fetching config %+v", err)
+	}
+
+	if cnfg == "" {
+		t.Fatalf("cnfg is empty")
+
+	}
+	fmt.Println("config port is ", cnfg)
+
+}
